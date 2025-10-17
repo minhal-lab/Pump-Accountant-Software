@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baghoor Oil - Accounting System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f3f4f6;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 30;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .sidebar {
+            width: 256px;
+            background: linear-gradient(180deg, #111827 0%, #1f2937 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-right: 1px solid #374151;
+            transition: transform 0.3s ease;
+            z-index: 40;
+            overflow-y: auto;
+        }
+
+        .sidebar.mobile-hidden {
+            transform: translateX(-100%);
+            position: fixed;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                height: 100%;
+            }
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #4b5563;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-content: space-between;
+        }
+
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .company-details h2 {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .company-details p {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .close-sidebar {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .close-sidebar:hover {
+            background: #374151;
+        }
+
+        @media (max-width: 1024px) {
+            .close-sidebar {
+                display: block;
+            }
+        }
+
+        .nav {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: none;
+            border: none;
+            color: #d1d5db;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: #374151;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .nav-item i {
+            width: 20px;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #374151;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        .main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-gradient.green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .card-gradient.orange {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+
+        .card-gradient.purple {
+            background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+        }
+
+        .card-gradient-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .card-gradient-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .card-gradient-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .card-gradient-label {
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .card-gradient-detail {
+            font-size: 0.875rem;
+            opacity: 0.75;
+            margin-top: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: #f0f9ff;
+        }
+
+        .stat-box.green {
+            background: #f0fdf4;
+        }
+
+        .stat-box.purple {
+            background: #faf5ff;
+        }
+
+        .stat-box.orange {
+            background: #fff7ed;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box.green .stat-number {
+            color: #10b981;
+        }
+
+        .stat-box.purple .stat-number {
+            color: #a855f7;
+        }
+
+        .stat-box.orange .stat-number {
+            color: #f97316;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .btn {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-outlined {
+            border: 2px solid;
+            background: white;
+            color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .btn-outlined:hover {
+            background: #f0f9ff;
+        }
+
+        .btn-outlined.green {
+            color: #10b981;
+            border-color: #10b981;
+        }
+
+        .btn-outlined.green:hover {
+            background: #f0fdf4;
+        }
+
+        .btn-outlined.purple {
+            color: #a855f7;
+            border-color: #a855f7;
+        }
+
+        .btn-outlined.purple:hover {
+            background: #faf5ff;
+        }
+
+        .btn-outlined.orange {
+            color: #f97316;
+            border-color: #f97316;
+        }
+
+        .btn-outlined.orange:hover {
+            background: #fff7ed;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        th {
+            background: #f9fafb;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #374151;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .summary-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #6b7280;
+        }
+
+        .summary-value {
+            font-weight: 600;
+        }
+
+        .text-green {
+            color: #10b981;
+        }
+
+        .text-red {
+            color: #ef4444;
+        }
+
+        .text-blue {
+            color: #3b82f6;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .setup-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .setup-card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .setup-icon {
+            width: 48px;
+            height: 48px;
+            background: #dbeafe;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .setup-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .setup-title {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .setup-count {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .balance-sheet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .balance-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .balance-header {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .balance-header.liabilities {
+            background: #10b981;
+        }
+
+        .balance-content {
+            padding: 1rem;
+        }
+
+        .balance-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+        }
+
+        .balance-item:last-child {
+            border-bottom: none;
+        }
+
+        .balance-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 0.75rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1f2937;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .balance-total-value {
+            color: #2563eb;
+        }
+
+        .balance-header.liabilities ~ .balance-content .balance-total-value {
+            color: #10b981;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #9ca3af;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .date-display {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .main {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .action-buttons {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .btn {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="company-info">
+                    <div class="company-logo">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="company-details">
+                        <h2>Baghoor Oil</h2>
+                        <p>Traders II</p>
+                    </div>
+                    <button class="close-sidebar" id="closeSidebar">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <nav class="nav" id="nav">
+                <button class="nav-item active" onclick="showPage('dashboard', this)">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button class="nav-item" onclick="showPage('setup', this)">
+                    <i class="fas fa-cogs"></i> Setup
+                </button>
+                <button class="nav-item" onclick="showPage('transactions', this)">
+                    <i class="fas fa-file-alt"></i> Transactions
+                </button>
+                <button class="nav-item" onclick="showPage('reports', this)">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </button>
+                <button class="nav-item" onclick="showPage('balance-sheet', this)">
+                    <i class="fas fa-table"></i> Balance Sheet
+                </button>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="date-display" id="dateDisplay"></div>
+            </div>
+
+            <div class="main">
+                <!-- Dashboard Page -->
+                <div class="page active" id="dashboard">
+                    <h1>Dashboard</h1>
+
+                    <div class="grid grid-3">
+                        <div class="card card-gradient">
+                            <div class="card-gradient-header">
+                                <i class="fas fa-wallet card-gradient-icon"></i>
+                                <span class="card-gradient-amount" id="cashBalance">PKR 0</span>
+                            </div>
+                            <div>
+                                <div class="card-gradient-label">Cash Balance</div>
+                                <div class="card-gradient-detail">Total liquid cash</div>
+                            </div>
+                        </div>
+
+                        <div class="card card-gradient green">
+                            <div class="card-gradient-header">
+                                <i class="fas fa-users card-gradient-icon"></i>
+                                <span class="card-gradient-amount" id="arAmount">PKR 0</span>
+                            </div>
+                            <div>
+                                <div class="card-gradient-label">Accounts Receivable</div>
+                                <div class="card-gradient-detail" id="customerCount">0 customers</div>
+                            </div>
+                        </div>
+
+                        <div class="card card-gradient orange">
+                            <div class="card-gradient-header">
+                                <i class="fas fa-building card-gradient-icon"></i>
+                                <span class="card-gradient-amount" id="apAmount">PKR 0</span>
+                            </div>
+                            <div>
+                                <div class="card-gradient-label">Accounts Payable</div>
+                                <div class="card-gradient-detail" id="supplierCount">0 suppliers</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <div class="card">
+                            <h3>Business Summary</h3>
+                            <div class="summary-list">
+                                <div class="summary-item">
+                                    <span class="summary-label">Total Sales</span>
+                                    <span class="summary-value text-green" id="totalSales">PKR 0</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Total Purchases</span>
+                                    <span class="summary-value text-red" id="totalPurchases">PKR 0</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Gross Profit</span>
+                                    <span class="summary-value text-blue" id="grossProfit">PKR 0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Quick Stats</h3>
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-number" id="salesCount">0</div>
+                                    <div class="stat-label">Sales Invoices</div>
+                                </div>
+                                <div class="stat-box green">
+                                    <div class="stat-number" id="purchaseCount">0</div>
+                                    <div class="stat-label">Purchase Invoices</div>
+                                </div>
+                                <div class="stat-box purple">
+                                    <div class="stat-number" id="productCount">0</div>
+                                    <div class="stat-label">Products</div>
+                                </div>
+                                <div class="stat-box orange">
+                                    <div class="stat-number" id="vehicleCount">0</div>
+                                    <div class="stat-label">Vehicles</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-outlined" onclick="alert('New Sales Invoice form')">
+                            <i class="fas fa-plus"></i> New Sale
+                        </button>
+                        <button class="btn btn-outlined green" onclick="alert('New Purchase Invoice form')">
+                            <i class="fas fa-plus"></i> New Purchase
+                        </button>
+                        <button class="btn btn-outlined purple" onclick="alert('Receipt Voucher form')">
+                            <i class="fas fa-credit-card"></i> Receipt
+                        </button>
+                        <button class="btn btn-outlined orange" onclick="alert('Payment Voucher form')">
+                            <i class="fas fa-dollar-sign"></i> Payment
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <h3>Data Management</h3>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button class="btn btn-success" onclick="backupData()">
+                                <i class="fas fa-download"></i> Backup Data
+                            </button>
+                            <button class="btn btn-primary" onclick="restoreData()">
+                                <i class="fas fa-upload"></i> Restore Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Setup Page -->
+                <div class="page" id="setup">
+                    <h1>Setup - Chart of Accounts</h1>
+                    <div class="setup-grid">
+                        <div class="setup-card" onclick="alert('Customers management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Customers</div>
+                                <div class="setup-count" id="cust-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+
+                        <div class="setup-card" onclick="alert('Suppliers management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Suppliers</div>
+                                <div class="setup-count" id="supp-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+
+                        <div class="setup-card" onclick="alert('Products management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Products</div>
+                                <div class="setup-count" id="prod-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+
+                        <div class="setup-card" onclick="alert('Vehicles management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Vehicles</div>
+                                <div class="setup-count" id="veh-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions Page -->
+                <div class="page" id="transactions">
+                    <h1>Transactions</h1>
+                    <div class="grid grid-2">
+                        <div class="card card-gradient" onclick="alert('Sales Invoice form')" style="cursor: pointer;">
+                            <i class="fas fa-file-alt" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Sales Invoice</h3>
+                        </div>
+                        <div class="card card-gradient green" onclick="alert('Purchase Invoice form')" style="cursor: pointer;">
+                            <i class="fas fa-file-alt" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Purchase Invoice</h3>
+                        </div>
+                        <div class="card card-gradient orange" onclick="alert('Receipt Voucher form')" style="cursor: pointer;">
+                            <i class="fas fa-credit-card" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Receipt Voucher</h3>
+                        </div>
+                        <div class="card card-gradient purple" onclick="alert('Payment Voucher form')" style="cursor: pointer;">
+                            <i class="fas fa-dollar-sign" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Payment Voucher</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Page -->
+                <div class="page" id="reports">
+                    <h1>Reports</h1>
+
+                    <div class="card">
+                        <h3>Sales Report</h3>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th style="text-align: right;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" class="empty-state">No sales invoices yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Purchase Report</h3>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Supplier</th>
+                                        <th style="text-align: right;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" class="empty-state">No purchase invoices yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balance Sheet Page -->
+                <div class="page" id="balance-sheet">
+                    <div class="header-info">
+                        <h1 style="margin-bottom: 0;">Balance Sheet</h1>
+                        <button class="btn btn-primary" onclick="window.print()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <p style="font-size: 0.875rem; color: #9ca3af;" id="sheetDate">As of today</p>
+                        </div>
+
+                        <div class="balance-sheet-grid">
+                            <div class="balance-section">
+                                <div class="balance-header">Assets</div>
+                                <div class="balance-content">
+                                    <div class="balance-item">
+                                        <span class="balance-label">Cash in Hand</span>
+                                        <span id="bsCash">PKR 0</span>
+                                    </div>
+                                    <div class="balance-item">
+                                        <span class="balance-label">Accounts Receivable</span>
+                                        <span id="bsAR">PKR 0</span>
+                                    </div>
+                                    <div class="balance-total">
+                                        <span>Total Assets</span>
+                                        <span class="balance-total-value" id="totalAssets">PKR 0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="balance-section">
+                                <div class="balance-header liabilities">Liabilities & Equity</div>
+                                <div class="balance-content">
+                                    <div class="balance-item">
+                                        <span class="balance-label">Accounts Payable</span>
+                                        <span id="bsAP">PKR 0</span>
+                                    </div>
+                                    <div class="balance-item">
+                                        <span class="balance-label">Profit/Loss</span>
+                                        <span id="bsProfit">PKR 0</span>
+                                    </div>
+                                    <div class="balance-total">
+                                        <span>Total Liability</span>
+                                        <span class="balance-total-value" id="totalLiability">PKR 0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let data = {
+            customers: [],
+            suppliers: [],
+            products: [],
+            vehicles: [],
+            salesInvoices: [],
+            purchaseInvoices: [],
+            receiptVouchers: [],
+            paymentVouchers: []
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            updateDashboard();
+            setCurrentDate();
+        });
+
+        function setupEventListeners() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const overlay = document.getElementById('overlay');
+            const sidebar = document.getElementById('sidebar');
+
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('mobile-hidden');
+                overlay.classList.toggle('active');
+            });
+
+            closeSidebar.addEventListener('click', () => {
+                sidebar.classList.add('mobile-hidden');
+                overlay.classList.remove('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.add('mobile-hidden');
+                overlay.classList.remove('active');
+            });
+        }
+
+        function showPage(pageId, element) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Remove active from all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Add active to clicked nav item
+            if (element) {
+                element.classList.add('active');
+            }
+
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard',
+                'setup': 'Setup',
+                'transactions': 'Transactions',
+                'reports': 'Reports',
+                'balance-sheet': 'Balance Sheet'
+            };
+            document.getElementById('pageTitle').textContent = titles[pageId] || 'Page';
+
+            // Close mobile sidebar
+            document.getElementById('sidebar').classList.add('mobile-hidden');
+            document.getElementById('overlay').classList.remove('active');
+
+            // Update content
+            if (pageId === 'dashboard') {
+                updateDashboard();
+            } else if (pageId === 'setup') {
+                updateSetup();
+            } else if (pageId === 'balance-sheet') {
+                updateBalanceSheet();
+            }
+        }
+
+        function calculateTotals() {
+            const totalSales = data.salesInvoices.reduce((sum, inv) => sum + (inv.netAmount || 0), 0);
+            const totalPurchases = data.purchaseInvoices.reduce((sum, inv) => sum + (inv.netAmount || 0), 0);
+            const totalReceipts = data.receiptVouchers.reduce((sum, rec) => sum + (rec.amount || 0), 0);
+            const totalPayments = data.paymentVouchers.reduce((sum, pay) => sum + (pay.amount || 0), 0);
+
+            const accountsReceivable = data.customers.reduce((sum, cust) => {
+                const custSales = data.salesInvoices
+                    .filter(inv => inv.customerId === cust.id)
+                    .reduce((s, inv) => s + (inv.netAmount || 0), 0);
+                const custReceipts = data.receiptVouchers
+                    .filter(rec => rec.customerId === cust.id)
+                    .reduce((s, rec) => s + (rec.amount || 0), 0);
+                return sum + (custSales - custReceipts);
+            }, 0);
+
+            const accountsPayable = data.suppliers.reduce((sum, supp) => {
+                const suppPurchases = data.purchaseInvoices
+                    .filter(inv => inv.supplierId === supp.id)
+                    .reduce((s, inv) => s + (inv.netAmount || 0), 0);
+                const suppPayments = data.paymentVouchers
+                    .filter(pay => pay.supplierId === supp.id)
+                    .reduce((s, pay) => s + (pay.amount || 0), 0);
+                return sum + (suppPurchases - suppPayments);
+            }, 0);
+
+            return {
+                totalSales,
+                totalPurchases,
+                accountsReceivable,
+                accountsPayable,
+                cashBalance: totalReceipts - totalPayments,
+                profit: totalSales - totalPurchases
+            };
+        }
+
+        function updateDashboard() {
+            const totals = calculateTotals();
+
+            document.getElementById('cashBalance').textContent = `PKR ${totals.cashBalance.toLocaleString()}`;
+            document.getElementById('arAmount').textContent = `PKR ${totals.accountsReceivable.toLocaleString()}`;
+            document.getElementById('apAmount').textContent = `PKR ${totals.accountsPayable.toLocaleString()}`;
+            document.getElementById('customerCount').textContent = `${data.customers.length} customers`;
+            document.getElementById('supplierCount').textContent = `${data.suppliers.length} suppliers`;
+
+            document.getElementById('totalSales').textContent = `PKR ${totals.totalSales.toLocaleString()}`;
+            document.getElementById('totalPurchases').textContent = `PKR ${totals.totalPurchases.toLocaleString()}`;
+            document.getElementById('grossProfit').textContent = `PKR ${totals.profit.toLocaleString()}`;
+
+            document.getElementById('salesCount').textContent = data.salesInvoices.length;
+            document.getElementById('purchaseCount').textContent = data.purchaseInvoices.length;
+            document.getElementById('productCount').textContent = data.products.length;
+            document.getElementById('vehicleCount').textContent = data.vehicles.length;
+        }
+
+        function updateSetup() {
+            document.getElementById('cust-count').textContent = `${data.customers.length} items`;
+            document.getElementById('supp-count').textContent = `${data.suppliers.length} items`;
+            document.getElementById('prod-count').textContent = `${data.products.length} items`;
+            document.getElementById('veh-count').textContent = `${data.vehicles.length} items`;
+        }
+
+        function updateBalanceSheet() {
+            const totals = calculateTotals();
+            const totalAssets = totals.cashBalance + totals.accountsReceivable;
+            const totalLiability = totals.accountsPayable + totals.profit;
+
+            document.getElementById('bsCash').textContent = `PKR ${totals.cashBalance.toLocaleString()}`;
+            document.getElementById('bsAR').textContent = `PKR ${totals.accountsReceivable.toLocaleString()}`;
+            document.getElementById('totalAssets').textContent = `PKR ${totalAssets.toLocaleString()}`;
+
+            document.getElementById('bsAP').textContent = `PKR ${totals.accountsPayable.toLocaleString()}`;
+            document.getElementById('bsProfit').textContent = `PKR ${totals.profit.toLocaleString()}`;
+            document.getElementById('totalLiability').textContent = `PKR ${totalLiability.toLocaleString()}`;
+        }
+
+        function setCurrentDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('dateDisplay').textContent = date;
+            document.getElementById('sheetDate').textContent = `As of ${new Date().toLocaleDateString()}`;
+        }
+
+        function backupData() {
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'accounting-backup-' + new Date().toISOString().split('T')[0] + '.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function restoreData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        data = JSON.parse(event.target.result);
+                        alert('Data imported successfully!');
+                        updateDashboard();
+                    } catch (err) {
+                        alert('Error importing data');
+                    }
+                };
+                reader.readAsText(file);
+            });
+            input.click();
+        }
+    </script>
+</body>
+</html>
