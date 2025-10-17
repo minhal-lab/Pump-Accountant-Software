@@ -13,120 +13,13 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #f3f4f6;
             height: 100vh;
             overflow: hidden;
         }
 
-        .login-container {
-            display: flex;
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-            margin: 0 auto 1rem;
-        }
-
-        .login-header h1 {
-            font-size: 1.875rem;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-header p {
-            color: #9ca3af;
-            font-size: 0.875rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #374151;
-            font-weight: 500;
-            font-size: 0.875rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            transition: all 0.2s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.875rem;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .demo-info {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: #f0f9ff;
-            border-radius: 0.5rem;
-            font-size: 0.75rem;
-            color: #0369a1;
-            border-left: 3px solid #0369a1;
-            line-height: 1.6;
-        }
-
-        .demo-info strong {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .app-container {
+        .container {
             display: flex;
             height: 100vh;
         }
@@ -257,70 +150,6 @@
             width: 20px;
         }
 
-        .sidebar-footer {
-            padding: 1rem;
-            border-top: 1px solid #4b5563;
-            margin-top: auto;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: #667eea;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-        }
-
-        .user-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .user-name {
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .user-role {
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
-
-        .logout-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-        }
-
-        .logout-btn:hover {
-            background: #dc2626;
-        }
-
         .content {
             flex: 1;
             display: flex;
@@ -405,6 +234,9 @@
         .card-gradient {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card-gradient.green {
@@ -415,11 +247,20 @@
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
         }
 
+        .card-gradient.purple {
+            background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+        }
+
         .card-gradient-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1rem;
+        }
+
+        .card-gradient-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
         }
 
         .card-gradient-amount {
@@ -456,6 +297,14 @@
             background: #f0fdf4;
         }
 
+        .stat-box.purple {
+            background: #faf5ff;
+        }
+
+        .stat-box.orange {
+            background: #fff7ed;
+        }
+
         .stat-number {
             font-size: 1.5rem;
             font-weight: 700;
@@ -465,6 +314,14 @@
 
         .stat-box.green .stat-number {
             color: #10b981;
+        }
+
+        .stat-box.purple .stat-number {
+            color: #a855f7;
+        }
+
+        .stat-box.orange .stat-number {
+            color: #f97316;
         }
 
         .stat-label {
@@ -512,13 +369,79 @@
         }
 
         .btn-outlined {
-            border: 2px solid #3b82f6;
+            border: 2px solid;
             background: white;
             color: #3b82f6;
+            border-color: #3b82f6;
         }
 
         .btn-outlined:hover {
             background: #f0f9ff;
+        }
+
+        .btn-outlined.green {
+            color: #10b981;
+            border-color: #10b981;
+        }
+
+        .btn-outlined.green:hover {
+            background: #f0fdf4;
+        }
+
+        .btn-outlined.purple {
+            color: #a855f7;
+            border-color: #a855f7;
+        }
+
+        .btn-outlined.purple:hover {
+            background: #faf5ff;
+        }
+
+        .btn-outlined.orange {
+            color: #f97316;
+            border-color: #f97316;
+        }
+
+        .btn-outlined.orange:hover {
+            background: #fff7ed;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        th {
+            background: #f9fafb;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #374151;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .summary-list {
+            display: flex;
+            flex-direction: column;
         }
 
         .summary-item {
@@ -527,6 +450,10 @@
             padding: 0.75rem 0;
             border-bottom: 1px solid #e5e7eb;
             font-size: 0.875rem;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
         }
 
         .summary-label {
@@ -549,57 +476,169 @@
             color: #3b82f6;
         }
 
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .setup-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .setup-card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .setup-icon {
+            width: 48px;
+            height: 48px;
+            background: #dbeafe;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .setup-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .setup-title {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .setup-count {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .balance-sheet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .balance-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .balance-header {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .balance-header.liabilities {
+            background: #10b981;
+        }
+
+        .balance-content {
+            padding: 1rem;
+        }
+
+        .balance-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+        }
+
+        .balance-item:last-child {
+            border-bottom: none;
+        }
+
+        .balance-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 0.75rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1f2937;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .balance-total-value {
+            color: #2563eb;
+        }
+
+        .balance-header.liabilities ~ .balance-content .balance-total-value {
+            color: #10b981;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #9ca3af;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .date-display {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
         @media (max-width: 640px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
             .main {
                 padding: 1rem;
             }
 
-            .login-card {
-                margin: 1rem;
+            .card {
+                padding: 1rem;
+            }
+
+            .action-buttons {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .btn {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <!-- LOGIN PAGE -->
-    <div id="loginPage" class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-logo">
-                    <i class="fas fa-building"></i>
-                </div>
-                <h1>Baghoor Oil</h1>
-                <p>Accounting System</p>
-            </div>
-
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter username" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter password" required>
-                </div>
-
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-
-                <div class="demo-info">
-                    <strong>Demo Credentials:</strong>
-                    Username: admin<br>
-                    Password: 123456
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MAIN APP PAGE -->
-    <div id="appPage" class="app-container" style="display: none;">
+    <div class="container">
         <div class="overlay" id="overlay"></div>
 
+        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="company-info">
@@ -616,7 +655,7 @@
                 </div>
             </div>
 
-            <nav class="nav">
+            <nav class="nav" id="nav">
                 <button class="nav-item active" onclick="showPage('dashboard', this)">
                     <i class="fas fa-home"></i> Dashboard
                 </button>
@@ -629,39 +668,32 @@
                 <button class="nav-item" onclick="showPage('reports', this)">
                     <i class="fas fa-chart-bar"></i> Reports
                 </button>
-            </nav>
-
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="user-avatar" id="userAvatar">A</div>
-                    <div class="user-info">
-                        <div class="user-name" id="userName">Admin</div>
-                        <div class="user-role">Accountant</div>
-                    </div>
-                </div>
-                <button class="logout-btn" onclick="handleLogout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                <button class="nav-item" onclick="showPage('balance-sheet', this)">
+                    <i class="fas fa-table"></i> Balance Sheet
                 </button>
-            </div>
+            </nav>
         </div>
 
+        <!-- Main Content -->
         <div class="content">
             <div class="header">
                 <button class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-                <h1 style="margin-bottom: 0;" id="pageTitle">Dashboard</h1>
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="date-display" id="dateDisplay"></div>
             </div>
 
             <div class="main">
+                <!-- Dashboard Page -->
                 <div class="page active" id="dashboard">
                     <h1>Dashboard</h1>
 
                     <div class="grid grid-3">
                         <div class="card card-gradient">
                             <div class="card-gradient-header">
-                                <i class="fas fa-wallet"></i>
-                                <span class="card-gradient-amount">PKR 50,000</span>
+                                <i class="fas fa-wallet card-gradient-icon"></i>
+                                <span class="card-gradient-amount" id="cashBalance">PKR 0</span>
                             </div>
                             <div>
                                 <div class="card-gradient-label">Cash Balance</div>
@@ -671,23 +703,23 @@
 
                         <div class="card card-gradient green">
                             <div class="card-gradient-header">
-                                <i class="fas fa-users"></i>
-                                <span class="card-gradient-amount">PKR 1,20,000</span>
+                                <i class="fas fa-users card-gradient-icon"></i>
+                                <span class="card-gradient-amount" id="arAmount">PKR 0</span>
                             </div>
                             <div>
                                 <div class="card-gradient-label">Accounts Receivable</div>
-                                <div class="card-gradient-detail">5 customers</div>
+                                <div class="card-gradient-detail" id="customerCount">0 customers</div>
                             </div>
                         </div>
 
                         <div class="card card-gradient orange">
                             <div class="card-gradient-header">
-                                <i class="fas fa-building"></i>
-                                <span class="card-gradient-amount">PKR 80,000</span>
+                                <i class="fas fa-building card-gradient-icon"></i>
+                                <span class="card-gradient-amount" id="apAmount">PKR 0</span>
                             </div>
                             <div>
                                 <div class="card-gradient-label">Accounts Payable</div>
-                                <div class="card-gradient-detail">3 suppliers</div>
+                                <div class="card-gradient-detail" id="supplierCount">0 suppliers</div>
                             </div>
                         </div>
                     </div>
@@ -695,18 +727,18 @@
                     <div class="grid">
                         <div class="card">
                             <h3>Business Summary</h3>
-                            <div>
+                            <div class="summary-list">
                                 <div class="summary-item">
                                     <span class="summary-label">Total Sales</span>
-                                    <span class="summary-value text-green">PKR 5,00,000</span>
+                                    <span class="summary-value text-green" id="totalSales">PKR 0</span>
                                 </div>
                                 <div class="summary-item">
                                     <span class="summary-label">Total Purchases</span>
-                                    <span class="summary-value text-red">PKR 3,00,000</span>
+                                    <span class="summary-value text-red" id="totalPurchases">PKR 0</span>
                                 </div>
                                 <div class="summary-item">
                                     <span class="summary-label">Gross Profit</span>
-                                    <span class="summary-value text-blue">PKR 2,00,000</span>
+                                    <span class="summary-value text-blue" id="grossProfit">PKR 0</span>
                                 </div>
                             </div>
                         </div>
@@ -715,19 +747,19 @@
                             <h3>Quick Stats</h3>
                             <div class="stats-grid">
                                 <div class="stat-box">
-                                    <div class="stat-number">12</div>
+                                    <div class="stat-number" id="salesCount">0</div>
                                     <div class="stat-label">Sales Invoices</div>
                                 </div>
                                 <div class="stat-box green">
-                                    <div class="stat-number">8</div>
+                                    <div class="stat-number" id="purchaseCount">0</div>
                                     <div class="stat-label">Purchase Invoices</div>
                                 </div>
-                                <div class="stat-box green">
-                                    <div class="stat-number">25</div>
+                                <div class="stat-box purple">
+                                    <div class="stat-number" id="productCount">0</div>
                                     <div class="stat-label">Products</div>
                                 </div>
-                                <div class="stat-box green">
-                                    <div class="stat-number">5</div>
+                                <div class="stat-box orange">
+                                    <div class="stat-number" id="vehicleCount">0</div>
                                     <div class="stat-label">Vehicles</div>
                                 </div>
                             </div>
@@ -735,133 +767,175 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-outlined">
+                        <button class="btn btn-outlined" onclick="alert('New Sales Invoice form')">
                             <i class="fas fa-plus"></i> New Sale
                         </button>
-                        <button class="btn btn-outlined">
+                        <button class="btn btn-outlined green" onclick="alert('New Purchase Invoice form')">
                             <i class="fas fa-plus"></i> New Purchase
                         </button>
-                        <button class="btn btn-outlined">
+                        <button class="btn btn-outlined purple" onclick="alert('Receipt Voucher form')">
                             <i class="fas fa-credit-card"></i> Receipt
                         </button>
-                        <button class="btn btn-outlined">
+                        <button class="btn btn-outlined orange" onclick="alert('Payment Voucher form')">
                             <i class="fas fa-dollar-sign"></i> Payment
                         </button>
                     </div>
+
+                    <div class="card">
+                        <h3>Data Management</h3>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button class="btn btn-success" onclick="backupData()">
+                                <i class="fas fa-download"></i> Backup Data
+                            </button>
+                            <button class="btn btn-primary" onclick="restoreData()">
+                                <i class="fas fa-upload"></i> Restore Data
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Setup Page -->
                 <div class="page" id="setup">
-                    <h1>Setup - Master Data</h1>
-                    <p style="color: #6b7280; margin-top: 2rem;">Setup page - Manage customers, suppliers, products, and vehicles</p>
+                    <h1>Setup - Chart of Accounts</h1>
+                    <div class="setup-grid">
+                        <div class="setup-card" onclick="alert('Customers management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Customers</div>
+                                <div class="setup-count" id="cust-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+
+                        <div class="setup-card" onclick="alert('Suppliers management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Suppliers</div>
+                                <div class="setup-count" id="supp-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+
+                        <div class="setup-card" onclick="alert('Products management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Products</div>
+                                <div class="setup-count" id="prod-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+
+                        <div class="setup-card" onclick="alert('Vehicles management')">
+                            <div class="setup-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="setup-content">
+                                <div class="setup-title">Vehicles</div>
+                                <div class="setup-count" id="veh-count">0 items</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color: #d1d5db;"></i>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Transactions Page -->
                 <div class="page" id="transactions">
                     <h1>Transactions</h1>
-                    <p style="color: #6b7280; margin-top: 2rem;">Manage sales invoices, purchase invoices, receipts, and payments</p>
+                    <div class="grid grid-2">
+                        <div class="card card-gradient" onclick="alert('Sales Invoice form')" style="cursor: pointer;">
+                            <i class="fas fa-file-alt" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Sales Invoice</h3>
+                        </div>
+                        <div class="card card-gradient green" onclick="alert('Purchase Invoice form')" style="cursor: pointer;">
+                            <i class="fas fa-file-alt" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Purchase Invoice</h3>
+                        </div>
+                        <div class="card card-gradient orange" onclick="alert('Receipt Voucher form')" style="cursor: pointer;">
+                            <i class="fas fa-credit-card" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Receipt Voucher</h3>
+                        </div>
+                        <div class="card card-gradient purple" onclick="alert('Payment Voucher form')" style="cursor: pointer;">
+                            <i class="fas fa-dollar-sign" style="font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.9;"></i>
+                            <h3 style="color: white; margin-top: 0;">Payment Voucher</h3>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Reports Page -->
                 <div class="page" id="reports">
                     <h1>Reports</h1>
-                    <p style="color: #6b7280; margin-top: 2rem;">View sales reports, purchase reports, and financial statements</p>
+
+                    <div class="card">
+                        <h3>Sales Report</h3>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th style="text-align: right;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" class="empty-state">No sales invoices yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Purchase Report</h3>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Supplier</th>
+                                        <th style="text-align: right;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" class="empty-state">No purchase invoices yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        function handleLogin(event) {
-            event.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Simple credentials check
-            if (username === 'admin' && password === '123456') {
-                // Hide login page
-                document.getElementById('loginPage').style.display = 'none';
-                // Show app page
-                document.getElementById('appPage').style.display = 'flex';
-                // Set user name
-                document.getElementById('userName').textContent = username.charAt(0).toUpperCase() + username.slice(1);
-                document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
-                
-                setupEventListeners();
-            } else {
-                alert('Invalid credentials! Use admin / 123456');
-                document.getElementById('username').value = '';
-                document.getElementById('password').value = '';
-            }
-        }
+                <!-- Balance Sheet Page -->
+                <div class="page" id="balance-sheet">
+                    <div class="header-info">
+                        <h1 style="margin-bottom: 0;">Balance Sheet</h1>
+                        <button class="btn btn-primary" onclick="window.print()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                    </div>
 
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                // Hide app page
-                document.getElementById('appPage').style.display = 'none';
-                // Show login page
-                document.getElementById('loginPage').style.display = 'flex';
-                // Clear form
-                document.getElementById('loginForm').reset();
-                document.getElementById('username').focus();
-            }
-        }
+                    <div class="card">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <p style="font-size: 0.875rem; color: #9ca3af;" id="sheetDate">As of today</p>
+                        </div>
 
-        function setupEventListeners() {
-            const menuToggle = document.getElementById('menuToggle');
-            const closeSidebar = document.getElementById('closeSidebar');
-            const overlay = document.getElementById('overlay');
-            const sidebar = document.getElementById('sidebar');
-
-            menuToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('mobile-hidden');
-                overlay.classList.toggle('active');
-            });
-
-            closeSidebar.addEventListener('click', () => {
-                sidebar.classList.add('mobile-hidden');
-                overlay.classList.remove('active');
-            });
-
-            overlay.addEventListener('click', () => {
-                sidebar.classList.add('mobile-hidden');
-                overlay.classList.remove('active');
-            });
-        }
-
-        function showPage(pageId, element) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-
-            // Remove active from all nav items
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-
-            // Add active to clicked nav item
-            if (element) {
-                element.classList.add('active');
-            }
-
-            // Update page title
-            const titles = {
-                'dashboard': 'Dashboard',
-                'setup': 'Setup',
-                'transactions': 'Transactions',
-                'reports': 'Reports'
-            };
-            document.getElementById('pageTitle').textContent = titles[pageId] || 'Page';
-
-            // Close mobile sidebar
-            sidebar.classList.add('mobile-hidden');
-            overlay.classList.remove('active');
-        }
-
-        // Focus username field on load
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('username').focus();
-        });
-    </script>
-</body>
-</html>
+                        <div class="balance-sheet-grid">
+                            <div class="balance-section">
+                                <div class="balance-header">Assets</div>
+                                <div class="balance-content">
+                                    <div class="balance-item">
+                                        <span class="balance-label">Cash in Hand</span>
+                                        <span id="bsCash">PKR 0</span>
+                                    </div>
+                                    <div class="balance-item">
+                                        <span class="balance-label">Accounts Receivable</span>
+                                        <span id="bsAR">PKR 0</span>
+                                    </div>
+                                    <div class="balance-total
